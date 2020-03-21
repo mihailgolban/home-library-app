@@ -1,11 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-const Home = () => {
+const Home = ({theme, dispatch}) => {
     return (
         <div>
-            Home page
+          Home
         </div>
     );
 };
 
-export default Home;
+function matchStateToProps({appTheme}) {
+    return {
+        theme: appTheme.theme
+    }
+}
+
+export default connect(matchStateToProps)(Home);

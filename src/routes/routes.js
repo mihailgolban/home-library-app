@@ -1,4 +1,5 @@
 import Home from "../pages/Home";
+import Shelves from "../pages/Shelves";
 import NoMatch from "../pages/NoMatch";
 
 const routes = [
@@ -11,6 +12,11 @@ const routes = [
         path: '/home',
         exact: true,
         component: Home
+    },
+    {
+        path: '/shelves',
+        exact: true,
+        component: Shelves
     },
     {
         path: '*',

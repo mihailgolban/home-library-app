@@ -5,11 +5,10 @@ function persistStore(state, payload) {
 }
 
 const reducer = (state = {}, {type, payload = null}) => {
-    switch (type) {
-        case PERSIST_REHYDRATE:
-            return persistStore(state, payload);
-        default:
-            return state;
+    if (type === PERSIST_REHYDRATE) {
+        return persistStore(state, payload);
+    } else {
+        return state;
     }
 };
 
