@@ -75,6 +75,7 @@ const AddNewShelfDialog = ({shelves, open, handleClose, handleSubmit}) => {
                         fullWidth
                         error = {error.length !== 0}
                         helperText={error}
+                        autoComplete="off"
                     />
                 </FormControl>
                 <FormControl fullWidth={true} margin="normal">

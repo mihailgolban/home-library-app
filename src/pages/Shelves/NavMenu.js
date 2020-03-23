@@ -35,9 +35,6 @@ const NavMenu = ({shelves, dispatch}) => {
                       </ListSubheader>
                   }
             >
-                <ListItem button>
-                    <ListItemText primary="All" />
-                </ListItem>
                 {Object.keys(shelves).map(shelfId => {
                     const {name} = shelves[shelfId];
                     return (

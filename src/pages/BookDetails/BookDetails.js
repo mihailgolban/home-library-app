@@ -5,6 +5,7 @@ import NoMatch from "../NoMatch";
 import BookDetailsContainer from "./BookDetailsContainer";
 import Grid from "@material-ui/core/Grid";
 import Rating from '@material-ui/lab/Rating';
+import AddBookToShelf from "./components/AddBookToShelf";
 
 import {
     Card,
@@ -132,9 +133,7 @@ const BookDetails = () => {
                                             </CardContent>
                                             <CardActions>
                                                 <Box px={2}>
-                                                    <Button color="primary">
-                                                        Add book to shelf
-                                                    </Button>
+                                                    <AddBookToShelf bookId={bookId}/>
                                                     <Button color="primary">
                                                         Write a review
                                                     </Button>

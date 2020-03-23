@@ -1,6 +1,6 @@
 export const ADD_NEW_SHELF = 'ADD_NEW_SHELF';
-export const RENAME_SHELF = 'RENAME_SHELF';
 export const DELETE_SHELF = 'DELETE_SHELF';
+export const ADD_BOOK_TO_SHELF = 'ADD_BOOK_TO_SHELF';
 
 export function addNewShelf(name, categories=[]) {
     return {
@@ -9,10 +9,13 @@ export function addNewShelf(name, categories=[]) {
     }
 }
 
-export function renameShelf(shelfId, newName) {
-    return {
-        type: RENAME_SHELF,
-        payload: {shelfId, newName}
+export function addBookToShelf(shelfId, bookId) {
+    return (dispatch, getState) => {
+        const book = getState().booksReducer.bookDetails[bookId];
+        dispatch({
+            type: ADD_BOOK_TO_SHELF,
+            payload: {shelfId, bookId, book}
+        })
     }
 }
 
@@ -24,3 +27,4 @@ export function deleteShelf(shelfId) {
         }
     }
 }
+
