@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveMenu from "./components/RemoveMenu";
 import {connect} from "react-redux";
 import AddNewShelfDialog from "./components/AddNewShelfDialog";
+import {setActiveShelf} from "../../store/actions/shelves";
 
 import {
     ListItem,
@@ -38,7 +39,7 @@ const NavMenu = ({shelves, dispatch}) => {
                 {Object.keys(shelves).map(shelfId => {
                     const {name} = shelves[shelfId];
                     return (
-                        <ListItem key={shelfId} button>
+                        <ListItem key={shelfId} button onClick={() => dispatch(setActiveShelf(shelfId))}>
                             {name && <ListItemText primary={name} />}
                             <RemoveMenu shelfId={shelfId} dispatch={dispatch}/>
                         </ListItem>

@@ -19,7 +19,7 @@ const messages = {
     warning: "It seems you have no bookshelves. Please create new one."
 };
 
-const AddBookToShelf = ({bookId, shelves, dispatch}) => {
+const AddBookToShelf = ({bookId, shelves, books, dispatch}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [alert, setAlert] = React.useState({severity: "success",message: messages.success('')});
     const [open, setOpen] = React.useState(false);
@@ -38,7 +38,7 @@ const AddBookToShelf = ({bookId, shelves, dispatch}) => {
     };
 
     const handleShelfSelect = (shelfId, bookId) => {
-        if (shelves[shelfId].books[bookId]) {
+        if (books.find(book => book.bookId === bookId && book.shelfId === shelfId)) {
             setAlert({severity: "error", message: messages.error(shelves[shelfId].name || '')});
         } else {
             dispatch(addBookToShelf(shelfId, bookId));
@@ -101,7 +101,8 @@ const AddBookToShelf = ({bookId, shelves, dispatch}) => {
 
 function mapStateToProps({shelvesReducer}) {
     return {
-        shelves: shelvesReducer.shelves
+        shelves: shelvesReducer.shelves,
+        books: shelvesReducer.books
     }
 }
 

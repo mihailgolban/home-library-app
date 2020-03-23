@@ -9,9 +9,14 @@ const Home = ({books}) => {
             <PageTitle>Books</PageTitle>
             <Box display="flex" flexWrap="wrap">
                 {books && books.map((book, i) => {
-                    const {key, ...rest} = book;
+                    const {key, cover_id, cover_edition_key, ...rest} = book;
                     return (
-                        <Book key={key} timeout={(i % 5) * 500} {...rest}/>
+                        <Book key={key}
+                              bookId={cover_edition_key || ''}
+                              timeout={(i % 5) * 500}
+                              coverUrl={cover_id ? `http://covers.openlibrary.org/b/id/${cover_id}-M.jpg`: null}
+                              {...rest}
+                        />
                     )
                 })}
             </Box>

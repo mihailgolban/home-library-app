@@ -14,19 +14,18 @@ const useStyles = makeStyles({
         flexGrow: 1,
         width: "150px",
         margin: "10px",
+        maxWidth: "150px"
     },
     actionArea: {
         flexGrow: 1
     }
 });
 
-const Book = ({cover_edition_key, title, cover_id, timeout}) => {
+const Book = ({bookId, title, timeout, coverUrl}) => {
     const classes = useStyles();
     const [cardRaised, setCardRaised] = useState(false);
-    const imageUrl = cover_id
-        ? `http://covers.openlibrary.org/b/id/${cover_id}-M.jpg`
-        : NoImage;
-    const bookId = cover_edition_key ? cover_edition_key : '';
+
+    const imageUrl = coverUrl ? coverUrl : NoImage;
 
     return (
         <Grow addEndListener={null} in timeout={timeout}>
