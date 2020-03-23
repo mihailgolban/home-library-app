@@ -1,25 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import Book from "../../components/Book";
 import Box from "@material-ui/core/Box";
+import PageTitle from "../../components/PageTitle";
 
-const Home = ({theme, dispatch, books}) => {
+const Home = ({books}) => {
     return (
+        <Box mt={3}>
+            <PageTitle>Books</PageTitle>
             <Box display="flex" flexWrap="wrap">
-                {books && books.map(book => {
+                {books && books.map((book, i) => {
                     const {key, ...rest} = book;
                     return (
-                        <Book key={key} {...rest}/>
+                        <Book key={key} timeout={(i % 5) * 500} {...rest}/>
                     )
                 })}
             </Box>
+        </Box>
     );
 };
 
-function matchStateToProps({appTheme}) {
-    return {
-        theme: appTheme.theme
-    }
-}
 
-export default connect(matchStateToProps)(Home);
+export default Home;
