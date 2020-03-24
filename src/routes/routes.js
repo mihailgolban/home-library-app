@@ -1,5 +1,5 @@
 import Home from "../pages/Home";
-import Shelves from "../pages/Shelves/Shelves";
+import Shelves from "../pages/Shelves";
 import NoMatch from "../pages/NoMatch";
 import BookDetails from "../pages/BookDetails";
 

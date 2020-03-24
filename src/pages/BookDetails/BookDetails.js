@@ -49,7 +49,7 @@ const BookDetails = () => {
                                 <Grid container spacing={2}>
                                     <Grid item sm={3}>
                                         <Grow in={true} addEndListener={null} timeout={1000}>
-                                            <CardMedia component="img"
+                                            <CardMedia component='img'
                                                        image={large}
                                                        className={classes.image}
                                                        title={title}

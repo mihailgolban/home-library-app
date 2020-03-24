@@ -24,7 +24,6 @@ export default function (state = initialState, {type, payload = null}) {
     }
     if (type === ADD_REVIEW) {
         const {bookId, review} = payload;
-        console.log('reducer book', [...state.bookReviews, {bookId, review}]);
         return {
             ...state,
             bookReviews: [...state.bookReviews, {bookId, review}]

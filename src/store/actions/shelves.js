@@ -2,6 +2,7 @@ export const ADD_NEW_SHELF = 'ADD_NEW_SHELF';
 export const DELETE_SHELF = 'DELETE_SHELF';
 export const ADD_BOOK_TO_SHELF = 'ADD_BOOK_TO_SHELF';
 export const SET_ACTIVE_SHELF = 'SET_ACTIVE_SHELF';
+export const ADD_REVIEW = 'shelves/ADD_REVIEW';
 
 export function addNewShelf(name, categories=[]) {
     return {
@@ -33,6 +34,13 @@ export function setActiveShelf(shelfId) {
     return {
         type: SET_ACTIVE_SHELF,
         payload: shelfId
+    }
+}
+
+export function addShelfReview(shelfId, review) {
+    return {
+        type: ADD_REVIEW,
+        payload: {shelfId, review}
     }
 }
 

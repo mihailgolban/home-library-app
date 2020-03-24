@@ -1,26 +1,38 @@
 import React from 'react';
 import NavMenu from "./NavMenu";
-import {Box, Grid} from "@material-ui/core";
+import {Box, Grid, Button, Typography} from "@material-ui/core";
 import PageTitle from "../../components/PageTitle";
 import Book from "../../components/Book";
-import {connect} from "react-redux";
+import Review from "../../components/Review";
+import {makeStyles} from "@material-ui/core/styles";
+import AddIcon from '@material-ui/icons/Add';
 
+const useStyles = makeStyles({
+    navMenu: {
+        flexGrow: 1
+    }
+});
 
-const Shelves = ({selectedShelfId, shelves, books}) => {
-    const shelfBooks = books.filter(book => {
-        console.log(book);
-        return book.shelfId === selectedShelfId;
-    });
+const Shelves = ({books, reviews, handleShelfReview, showReview}) => {
+    const classes = useStyles();
     return (
         <Box mt={3}>
             <PageTitle>My library</PageTitle>
+            <Box mt={3}>
             <Grid container spacing={2}>
-                <Grid item xs={3}>
+                <Grid item md={3} className={classes.navMenu}>
                     <NavMenu/>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item md={9}>
+                    {!showReview &&
+                    <Box textAlign="center">
+                        <Box p={5}>
+                            <Typography variant="h5" component="h5" color="textSecondary">No Books</Typography>
+                            <Typography variant="body1" component="body1" color="textSecondary">You have no books in your library</Typography>
+                        </Box>
+                    </Box>}
                     <Box display="flex" flexWrap="wrap">
-                        {shelfBooks.map((book, i) => {
+                        {books.map((book, i) => {
                             const {bookId, bookDetails: {title, cover}} = book;
                             return (
                                 <Book key={i}
@@ -32,18 +44,16 @@ const Shelves = ({selectedShelfId, shelves, books}) => {
                             )
                         })}
                     </Box>
+                    {showReview && <Review
+                        title={'Shelf reviews'}
+                        reviews={reviews}
+                        handleSubmitReview={handleShelfReview}
+                    />}
                 </Grid>
             </Grid>
+            </Box>
         </Box>
     );
 };
 
-function mapStateToProps({shelvesReducer}) {
-    return {
-        shelves: shelvesReducer.shelves,
-        selectedShelfId: shelvesReducer.selectedShelfId,
-        books: shelvesReducer.books
-    }
-}
-
-export default connect(mapStateToProps)(Shelves);
+export default Shelves;

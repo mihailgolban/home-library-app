@@ -1,3 +1,3 @@
-import Shelves from "./Shelves";
+import Shelves from "./ShelvesContainer";
 
 export default Shelves;

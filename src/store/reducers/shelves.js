@@ -2,14 +2,16 @@ import {
     ADD_NEW_SHELF,
     DELETE_SHELF,
     ADD_BOOK_TO_SHELF,
-    SET_ACTIVE_SHELF
+    SET_ACTIVE_SHELF,
+    ADD_REVIEW
 } from "../actions/shelves";
 import {uuidv4} from "../../utils";
 
 const initialState = {
     shelves: [],
     selectedShelfId: '',
-    books: []
+    books: [],
+    shelfReviews: []
 };
 
 export default function (state = initialState, {type, payload = null}) {
@@ -52,6 +54,14 @@ export default function (state = initialState, {type, payload = null}) {
         return {
             ...state,
             selectedShelfId: payload
+        }
+    }
+
+    if (type === ADD_REVIEW) {
+        const {shelfId, review} = payload;
+        return {
+            ...state,
+            shelfReviews: [...state.shelfReviews, {shelfId, review}]
         }
     }
 
