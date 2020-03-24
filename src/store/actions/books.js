@@ -2,6 +2,7 @@ import Api from "../../Api";
 
 export const GET_BOOK_LIST = 'GET_BOOK_LIST';
 export const GET_BOOK_DETAILS = 'GET_BOOK_DETAILS';
+export const ADD_REVIEW = 'books/ADD_REVIEW';
 
 export function getBooks(subject, parameters) {
     return (dispatch, getState) => {
@@ -35,5 +36,12 @@ export function getBookDetails(bookId) {
                 }
             })
             .catch(e => console.log(e));
+    }
+}
+
+export function addReview(bookId, review) {
+    return {
+        type: ADD_REVIEW,
+        payload: {bookId, review}
     }
 }

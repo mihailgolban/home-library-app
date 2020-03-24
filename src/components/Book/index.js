@@ -42,6 +42,7 @@ const Book = ({bookId, title, timeout, coverUrl}) => {
                             width="130"
                             image={imageUrl}
                             title={title}
+                            onError={e => e.target.src = NoImage}
                         />
                     </Link>
                 </CardActionArea>

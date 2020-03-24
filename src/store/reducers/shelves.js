@@ -40,7 +40,11 @@ export default function (state = initialState, {type, payload = null}) {
         delete newShelves[payload];
         return {
             ...state,
-            shelves: newShelves
+            shelves: newShelves,
+            books: state.books.filter(book => {
+                const {shelfId} = book;
+                return payload !== shelfId;
+            })
         }
     }
 

@@ -1,8 +1,9 @@
-import {GET_BOOK_DETAILS, GET_BOOK_LIST} from "../actions/books";
+import {GET_BOOK_DETAILS, GET_BOOK_LIST, ADD_REVIEW} from "../actions/books";
 
 const initialState = {
     books: [],
-    bookDetails: {}
+    bookDetails: {},
+    bookReviews: []
 };
 
 export default function (state = initialState, {type, payload = null}) {
@@ -19,6 +20,14 @@ export default function (state = initialState, {type, payload = null}) {
         return {
             ...state,
             bookDetails: newBookDetails
+        }
+    }
+    if (type === ADD_REVIEW) {
+        const {bookId, review} = payload;
+        console.log('reducer book', [...state.bookReviews, {bookId, review}]);
+        return {
+            ...state,
+            bookReviews: [...state.bookReviews, {bookId, review}]
         }
     }
     return state;

@@ -21,7 +21,7 @@ const Shelves = ({selectedShelfId, shelves, books}) => {
                 <Grid item xs={9}>
                     <Box display="flex" flexWrap="wrap">
                         {shelfBooks.map((book, i) => {
-                            const {bookId, title, cover} = book.bookDetails;
+                            const {bookId, bookDetails: {title, cover}} = book;
                             return (
                                 <Book key={i}
                                       bookId={bookId}

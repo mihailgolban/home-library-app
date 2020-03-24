@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
    }
 }));
 
-const NavMenu = ({shelves, dispatch}) => {
+const NavMenu = ({shelves, selectedShelfId, dispatch}) => {
     const [open, setOpen] = useState(false);
     const classes = useStyles();
     return (
@@ -39,7 +39,12 @@ const NavMenu = ({shelves, dispatch}) => {
                 {Object.keys(shelves).map(shelfId => {
                     const {name} = shelves[shelfId];
                     return (
-                        <ListItem key={shelfId} button onClick={() => dispatch(setActiveShelf(shelfId))}>
+                        <ListItem
+                            key={shelfId}
+                            button
+                            onClick={() => dispatch(setActiveShelf(shelfId))}
+                            selected={shelfId === selectedShelfId}
+                        >
                             {name && <ListItemText primary={name} />}
                             <RemoveMenu shelfId={shelfId} dispatch={dispatch}/>
                         </ListItem>
@@ -72,7 +77,8 @@ const NavMenu = ({shelves, dispatch}) => {
 
 function mapStateToProps({shelvesReducer}) {
     return {
-        shelves: shelvesReducer.shelves
+        shelves: shelvesReducer.shelves,
+        selectedShelfId: shelvesReducer.selectedShelfId
     }
 }
 

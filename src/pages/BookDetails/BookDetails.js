@@ -5,18 +5,14 @@ import NoMatch from "../NoMatch";
 import BookDetailsContainer from "./BookDetailsContainer";
 import Grid from "@material-ui/core/Grid";
 import Rating from '@material-ui/lab/Rating';
-import AddBookToShelf from "./components/AddBookToShelf";
+import NoImage from "../../assets/images/No_picture_available.png";
+import Review from "../../components/Review";
+import BookDescription from "./components/BookDescription";
 
 import {
-    Card,
-    CardActions,
     CardMedia,
-    CardContent,
     Typography,
     Box,
-    List,
-    ListItem,
-    Button,
     Grow
 } from "@material-ui/core";
 
@@ -33,7 +29,6 @@ const useStyles = makeStyles({
 
 const BookDetails = () => {
     const location = useLocation();
-    const [value, setValue] = React.useState(2);
     const params = new URLSearchParams(location.search);
     const classes = useStyles();
     const bookId = params.get('id');
@@ -42,18 +37,13 @@ const BookDetails = () => {
         return (
             <BookDetailsContainer bookId={bookId}>
                 {
-                    (bookDetails) => {
+                    ({bookDetails, reviews, handleSubmitReview, rating}) => {
                         const {
-                            title,
-                            publishers = [],
-                            number_of_pages = '',
+                            title = '',
                             cover:{large},
                             authors = [],
-                            publish_date,
-                            publish_places = [],
-                            subjects = [],
-                            subject_people = [],
                         } = bookDetails;
+
                         return (
                             <Box mt={3}>
                                 <Grid container spacing={2}>
@@ -63,6 +53,7 @@ const BookDetails = () => {
                                                        image={large}
                                                        className={classes.image}
                                                        title={title}
+                                                       onError={(e) => e.target.src = NoImage}
                                             />
                                         </Grow>
                                     </Grid>
@@ -75,71 +66,20 @@ const BookDetails = () => {
                                             })}
                                             </Typography>
                                             <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
-                                                }}
+                                                name="rating"
+                                                value={rating}
+                                                precision={0.5}
+                                                readOnly
                                             />
                                         </Box>
-                                        <Card>
-                                            <CardContent>
-                                                <List>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>Published:</Typography>
-                                                        <Typography>
-                                                            {publish_date}
-                                                        </Typography>
-                                                    </ListItem>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>Publishers:</Typography>
-                                                        <Typography>
-                                                            {publishers.map((publisher, i) => {
-                                                                return `${i ? ', ' : ''}${publisher.name || ''}`;
-                                                            })}
-                                                        </Typography>
-                                                    </ListItem>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>Categories:</Typography>
-                                                        <Typography>
-                                                            {subjects.map((subject, i) => {
-                                                                return `${i ? ', ' : ''}${subject.name || ''}`;
-                                                            })}
-                                                        </Typography>
-                                                    </ListItem>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>People:</Typography>
-                                                        <Typography>
-                                                            {subject_people.map((person, i) => {
-                                                                return `${i ? ', ' : ''}${person.name || ''}`;
-                                                            })}
-                                                        </Typography>
-                                                    </ListItem>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>Places:</Typography>
-                                                        <Typography>
-                                                            {publish_places.map((place, i) => {
-                                                                return `${i ? ', ' : ''}${place.name || ''}`;
-                                                            })}
-                                                        </Typography>
-                                                    </ListItem>
-                                                    <ListItem>
-                                                        <Typography color={"textSecondary"}>Number of pages:</Typography>
-                                                        <Typography>
-                                                            {number_of_pages || 'No data'}
-                                                        </Typography>
-                                                    </ListItem>
-                                                </List>
-                                            </CardContent>
-                                            <CardActions>
-                                                <Box px={2}>
-                                                    <AddBookToShelf bookId={bookId}/>
-                                                    <Button color="primary">
-                                                        Write a review
-                                                    </Button>
-                                                </Box>
-                                            </CardActions>
-                                        </Card>
+                                        <BookDescription bookId={bookId} bookDetails={bookDetails}/>
+                                        <Box mt={3}>
+                                            <Review
+                                                title={'Book reviews'}
+                                                reviews={reviews}
+                                                handleSubmitReview={handleSubmitReview}
+                                            />
+                                        </Box>
                                     </Grid>
                                 </Grid>
                             </Box>
