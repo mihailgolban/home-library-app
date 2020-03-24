@@ -1,36 +1,24 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core/styles";
 import {useLocation} from "react-router-dom";
 import NoMatch from "../NoMatch";
 import BookDetailsContainer from "./BookDetailsContainer";
 import Grid from "@material-ui/core/Grid";
 import Rating from '@material-ui/lab/Rating';
-import NoImage from "../../assets/images/No_picture_available.png";
 import Review from "../../components/Review";
 import BookDescription from "./components/BookDescription";
 
 import {
-    CardMedia,
     Typography,
     Box,
     Grow
 } from "@material-ui/core";
+import Image from 'material-ui-image'
 
-
-const useStyles = makeStyles({
-   image: {
-       objectFit: "contain",
-       height: "auto",
-       maxWidth: "280px",
-       maxHeight: "450px"
-   }
-});
 
 
 const BookDetails = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const classes = useStyles();
     const bookId = params.get('id');
 
     if (bookId) {
@@ -49,11 +37,10 @@ const BookDetails = () => {
                                 <Grid container spacing={2}>
                                     <Grid item sm={3}>
                                         <Grow in={true} addEndListener={null} timeout={1000}>
-                                            <CardMedia component='img'
-                                                       image={large}
-                                                       className={classes.image}
-                                                       title={title}
-                                                       onError={(e) => e.target.src = NoImage}
+                                            <Image src={large}
+                                                   imageStyle={{height: "auto", width: "270px", objectFit: "contain"}}
+                                                   disableSpinner={true}
+                                                   style={{minHeight: "400px", width: "270px"}}
                                             />
                                         </Grow>
                                     </Grid>

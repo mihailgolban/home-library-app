@@ -1,13 +1,15 @@
 import React from 'react';
 import NavBar from "../components/NavBar";
-import {Container} from "@material-ui/core";
+import {Box, Container} from "@material-ui/core";
 
 const PageLayout = ({children}) => {
     return (
-        <div>
+        <Box display="flex" flexDirection="column" height="100vh">
             <NavBar/>
-            <Container>{children}</Container>
-        </div>
+            <Box flexGrow="1">
+                <Container>{children}</Container>
+            </Box>
+        </Box>
     );
 };
 

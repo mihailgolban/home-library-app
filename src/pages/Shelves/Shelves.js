@@ -31,7 +31,7 @@ const Shelves = ({books, reviews, handleShelfReview, showReview, shelfCategories
                     <Box textAlign="center">
                         <Box p={5}>
                             <Typography variant="h5" component="h5" color="textSecondary">No Books</Typography>
-                            <Typography variant="body1" component="body1" color="textSecondary">You have no books in your library</Typography>
+                            <Typography variant="body1" component="p" color="textSecondary">You have no books in your library</Typography>
                         </Box>
                     </Box>}
                     <Box display="flex" flexWrap="wrap">

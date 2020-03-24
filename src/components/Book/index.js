@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import NoImage from "../../assets/images/No_picture_available.png";
 import {Link} from "react-router-dom";
 import {Grow} from "@material-ui/core";
+import Image from 'material-ui-image'
 
 const useStyles = makeStyles({
     root: {
@@ -36,13 +36,10 @@ const Book = ({bookId, title, timeout, coverUrl}) => {
             >
                 <CardActionArea className={classes.actionArea}>
                     <Link to={`/book?id=${bookId}`}>
-                        <CardMedia
-                            component="img"
-                            height="250"
-                            width="130"
-                            image={imageUrl}
-                            title={title}
-                            onError={e => e.target.src = NoImage}
+                        <Image src={imageUrl}
+                               imageStyle={{height: "250px", width: "150px", objectFit: "cover"}}
+                               disableSpinner={true}
+                               style={{height: "250px", width: "150px"}}
                         />
                     </Link>
                 </CardActionArea>

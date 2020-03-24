@@ -21,7 +21,7 @@ class ShelvesContainer extends Component {
             return book.shelfId === selectedShelfId;
         });
         const showReview = Object.keys(shelves).length !== 0;
-        const shelfCategories = shelves[selectedShelfId].categories;
+        const shelfCategories = shelves[selectedShelfId] ? shelves[selectedShelfId].categories : [];
         return (
             <Shelves
                 books={shelfBooks}

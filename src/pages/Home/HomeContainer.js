@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getBooks} from "../../store/actions/books";
 import Home from "./Home";
 import PropTypes from 'prop-types';
+import Progress from "../../components/Progress";
 
 class HomeContainer extends Component {
     constructor(props) {
@@ -21,8 +22,8 @@ class HomeContainer extends Component {
 
     render() {
         const {books} = this.props;
-        const {isLoading} = this.props;
-        return isLoading ? <div>Loading...</div> : <Home books={books}/>
+        const {isLoading} = this.state;
+        return isLoading ? <Progress/> : <Home books={books}/>;
     }
 }
 

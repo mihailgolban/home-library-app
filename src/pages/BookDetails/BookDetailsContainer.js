@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getBookDetails} from "../../store/actions/books";
 import PropTypes from "prop-types";
 import {addReview} from "../../store/actions/books";
+import Progress from "../../components/Progress";
 
 class BookDetailsContainer extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class BookDetailsContainer extends Component {
         const rating = reviews.reduce((acc, cur) => acc + cur.review.rating, 0) / reviews.length;
         const {isLoading} = this.state;
 
-        return isLoading ? <div>Loading...</div> : children({
+        return isLoading ? <Progress/> : children({
             bookDetails: bookDetails[bookId],
             reviews: reviews,
             handleSubmitReview: this.handleSubmitReview,
