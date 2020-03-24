@@ -19,7 +19,7 @@ const messages = {
     warning: "It seems you have no bookshelves. Please create new one."
 };
 
-const AddBookToShelf = ({bookId, shelves, books, dispatch}) => {
+const AddBookToShelf = ({bookId, shelves, books, dispatch, bookDetails}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [alert, setAlert] = React.useState({severity: "success",message: messages.success('')});
     const [open, setOpen] = React.useState(false);
@@ -27,6 +27,7 @@ const AddBookToShelf = ({bookId, shelves, books, dispatch}) => {
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
         const shelvesKeys = Object.keys(shelves);
+        // If no shelves
         if (shelvesKeys.length === 0) {
             setAlert({severity: "warning", message: messages.warning})
             setOpen(true);
@@ -38,11 +39,21 @@ const AddBookToShelf = ({bookId, shelves, books, dispatch}) => {
     };
 
     const handleShelfSelect = (shelfId, bookId) => {
-        if (books.find(book => book.bookId === bookId && book.shelfId === shelfId)) {
-            setAlert({severity: "error", message: messages.error(shelves[shelfId].name || '')});
-        } else {
-            dispatch(addBookToShelf(shelfId, bookId));
-            setAlert({severity: "success", message: messages.success(shelves[shelfId].name || '')});
+        // If book is already on shelf
+
+        let bookCategories = bookDetails[bookId].subjects || [];
+        const shelfCategories = shelves[shelfId].categories || [];
+
+        switch (true) {
+            case books.find(book => book.bookId === bookId && book.shelfId === shelfId) !== undefined:
+                setAlert({severity: "error", message: messages.error(shelves[shelfId].name || '')});
+                break;
+            case (shelfCategories.length !== 0 && !bookCategories.some(sub1 => shelfCategories.some(sub2 => sub1.name.includes(sub2)))):
+                setAlert({severity: "error", message: 'Categories of the book do not match the categories of the bookshelf.'});
+                break;
+            default:
+                dispatch(addBookToShelf(shelfId, bookId));
+                setAlert({severity: "success", message: messages.success(shelves[shelfId].name || '')});
         }
         setOpen(true);
         handleClose();
@@ -99,10 +110,11 @@ const AddBookToShelf = ({bookId, shelves, books, dispatch}) => {
     );
 };
 
-function mapStateToProps({shelvesReducer}) {
+function mapStateToProps({shelvesReducer, booksReducer}) {
     return {
         shelves: shelvesReducer.shelves,
-        books: shelvesReducer.books
+        books: shelvesReducer.books,
+        bookDetails: booksReducer.bookDetails
     }
 }
 

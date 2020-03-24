@@ -21,12 +21,14 @@ class ShelvesContainer extends Component {
             return book.shelfId === selectedShelfId;
         });
         const showReview = Object.keys(shelves).length !== 0;
+        const shelfCategories = shelves[selectedShelfId].categories;
         return (
             <Shelves
                 books={shelfBooks}
                 reviews={reviews}
                 handleShelfReview={this.handleShelfReview}
                 showReview={showReview}
+                shelfCategories={shelfCategories}
             />
         );
     }

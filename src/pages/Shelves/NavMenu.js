@@ -32,7 +32,7 @@ const NavMenu = ({shelves, selectedShelfId, dispatch}) => {
             <List component="nav"
                   subheader={
                       <ListSubheader component="div" id="nested-list-subheader">
-                         Shelves
+                         Bookshelves
                       </ListSubheader>
                   }
             >

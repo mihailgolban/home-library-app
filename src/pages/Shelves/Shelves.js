@@ -5,7 +5,7 @@ import PageTitle from "../../components/PageTitle";
 import Book from "../../components/Book";
 import Review from "../../components/Review";
 import {makeStyles} from "@material-ui/core/styles";
-import AddIcon from '@material-ui/icons/Add';
+import BookshelfCategories from "./components/BookshelfCategories";
 
 const useStyles = makeStyles({
     navMenu: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Shelves = ({books, reviews, handleShelfReview, showReview}) => {
+const Shelves = ({books, reviews, handleShelfReview, showReview, shelfCategories}) => {
     const classes = useStyles();
     return (
         <Box mt={3}>
@@ -22,6 +22,9 @@ const Shelves = ({books, reviews, handleShelfReview, showReview}) => {
             <Grid container spacing={2}>
                 <Grid item md={3} className={classes.navMenu}>
                     <NavMenu/>
+                    <Box mt={2}>
+                        <BookshelfCategories categories={shelfCategories}/>
+                    </Box>
                 </Grid>
                 <Grid item md={9}>
                     {!showReview &&
