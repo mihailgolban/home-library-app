@@ -1,4 +1,4 @@
-import {GET_BOOK_DETAILS, GET_BOOK_LIST, ADD_REVIEW} from "../actions/books";
+import {GET_BOOK_DETAILS, GET_BOOK_LIST, ADD_REVIEW, SEARCH_BOOK} from "../actions/books";
 
 const initialState = {
     books: [],
@@ -29,5 +29,13 @@ export default function (state = initialState, {type, payload = null}) {
             bookReviews: [...state.bookReviews, {bookId, review}]
         }
     }
+
+    if(type === SEARCH_BOOK) {
+        return {
+            ...state,
+            books: payload
+        }
+    }
+
     return state;
 }

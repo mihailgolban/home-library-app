@@ -25,8 +25,6 @@ const Book = ({bookId, title, timeout, coverUrl}) => {
     const classes = useStyles();
     const [cardRaised, setCardRaised] = useState(false);
 
-    const imageUrl = coverUrl ? coverUrl : NoImage;
-
     return (
         <Grow addEndListener={null} in timeout={timeout}>
             <Card className={classes.root}
@@ -36,10 +34,11 @@ const Book = ({bookId, title, timeout, coverUrl}) => {
             >
                 <CardActionArea className={classes.actionArea}>
                     <Link to={`/book?id=${bookId}`}>
-                        <Image src={imageUrl}
+                        <Image src={coverUrl}
                                imageStyle={{height: "250px", width: "150px", objectFit: "cover"}}
                                disableSpinner={true}
                                style={{height: "250px", width: "150px"}}
+                               title={title}
                         />
                     </Link>
                 </CardActionArea>

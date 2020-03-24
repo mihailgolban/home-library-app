@@ -22,6 +22,15 @@ class Api {
             }
         })
     }
+
+    static searchBook(title) {
+        return Api.client.get('/searchBook', {
+            params: {
+                title,
+                limit: 21
+            }
+        })
+    }
 }
 
 export default Api;

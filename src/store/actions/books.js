@@ -3,6 +3,7 @@ import Api from "../../Api";
 export const GET_BOOK_LIST = 'GET_BOOK_LIST';
 export const GET_BOOK_DETAILS = 'GET_BOOK_DETAILS';
 export const ADD_REVIEW = 'books/ADD_REVIEW';
+export const SEARCH_BOOK = 'SEARCH_BOOK';
 
 export function getBooks(subject, parameters) {
     return (dispatch, getState) => {
@@ -43,5 +44,19 @@ export function addReview(bookId, review) {
     return {
         type: ADD_REVIEW,
         payload: {bookId, review}
+    }
+}
+
+export function searchBook(title) {
+    return dispatch => {
+        return Api.searchBook(title)
+            .then(({data}) => {
+                console.log("searchBook", data);
+                dispatch({
+                    type: SEARCH_BOOK,
+                    payload: data.docs
+                })
+            })
+            .catch(e => console.log(e));
     }
 }
