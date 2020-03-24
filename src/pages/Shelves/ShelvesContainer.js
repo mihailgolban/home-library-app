@@ -17,7 +17,8 @@ class ShelvesContainer extends Component {
         const reviews = shelfReviews.filter(review => {
             return review.shelfId === selectedShelfId;
         });
-        const shelfBooks = books.filter(book => {
+
+        const shelfBooks = selectedShelfId === 'all' ? books : books.filter(book => {
             return book.shelfId === selectedShelfId;
         });
         const showReview = Object.keys(shelves).length !== 0;

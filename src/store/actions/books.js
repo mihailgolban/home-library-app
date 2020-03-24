@@ -14,7 +14,7 @@ export function getBooks(subject, parameters) {
                 if (data.works) {
                     dispatch({
                         type: GET_BOOK_LIST,
-                        payload: data.works
+                        payload: data.works.filter(book => book['cover_edition_key'] !== undefined)
                     });
                 }
             })
@@ -54,7 +54,7 @@ export function searchBook(title) {
                 console.log("searchBook", data);
                 dispatch({
                     type: SEARCH_BOOK,
-                    payload: data.docs
+                    payload: data.docs.filter(book => book['cover_edition_key'] !== undefined)
                 })
             })
             .catch(e => console.log(e));

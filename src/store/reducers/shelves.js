@@ -8,8 +8,8 @@ import {
 import {uuidv4} from "../../utils";
 
 const initialState = {
-    shelves: [],
-    selectedShelfId: '',
+    shelves: {'all': {name: 'All books', categories: []}},
+    selectedShelfId: 'all',
     books: [],
     shelfReviews: []
 };
