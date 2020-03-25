@@ -45,6 +45,10 @@ export default function (state = initialState, {type, payload = null}) {
             books: state.books.filter(book => {
                 const {shelfId} = book;
                 return payload !== shelfId;
+            }),
+            shelfReviews: state.shelfReviews.filter(shelf => {
+                const {shelfId} = shelf;
+                return payload !== shelfId;
             })
         }
     }
