@@ -39,7 +39,7 @@ const BookDetails = () => {
                                         <Grow in={true} addEndListener={null} timeout={1000}>
                                             <Image src={large}
                                                    imageStyle={{height: "auto", width: "270px", objectFit: "contain"}}
-                                                   disableSpinner={true}
+                                                   disableSpinner={false}
                                                    style={{minHeight: "400px", width: "270px"}}
                                             />
                                         </Grow>

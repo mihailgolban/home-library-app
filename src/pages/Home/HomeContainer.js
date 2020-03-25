@@ -26,7 +26,7 @@ class HomeContainer extends Component {
         return (
             <div>
                 {isLoading && <Progress/>}
-                <Home books={books}/>
+                <Home books={books} isLoading={isLoading}/>
             </div>
         );
     }

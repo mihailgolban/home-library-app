@@ -3,7 +3,7 @@ import {makeStyles, fade} from "@material-ui/core/styles";
 import {InputBase, Grid, Box} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {connect} from "react-redux";
-import {searchBook} from "../../../store/actions/books";
+import {getBooks, searchBook} from "../../../store/actions/books";
 import Progress from "../../../components/Progress";
 
 const useStyles = makeStyles(theme => ({
@@ -46,6 +46,18 @@ const SearchBar = ({dispatch}) => {
     const [typingTimout, setTypingTimeout] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const classes = useStyles();
+
+    const handleOnSearch = (search) => {
+        setIsLoading(true);
+        if (search.length !== 0) {
+            dispatch(searchBook(search))
+                .then(() => setIsLoading(false));
+        } else {
+            dispatch(getBooks('fiction', {limit: 21}))
+                .then(() => setIsLoading(false));
+        }
+    };
+
     return (
         <>
             {isLoading && <Progress/>}
@@ -69,18 +81,14 @@ const SearchBar = ({dispatch}) => {
                                 const value = e.target.value;
                                 setValue(value);
                                 clearTimeout(typingTimout);
-                                if (value.length !== 0) {
                                     setTypingTimeout(setTimeout(() => {
-                                        setIsLoading(true);
-                                        dispatch(searchBook(value)).then(() => setIsLoading(false));
+                                        handleOnSearch(value);
                                     }, 1000));
-                                }
                             }}
                             onKeyDown={e => {
                                 if (e.key === 'Enter') {
                                     clearTimeout(typingTimout);
-                                    setIsLoading(true);
-                                    dispatch(searchBook(value)).then(() => setIsLoading(false));
+                                    handleOnSearch(value);
                                 }
                             }}
                         />

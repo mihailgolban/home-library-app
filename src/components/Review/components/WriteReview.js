@@ -13,7 +13,7 @@ const WriteReview = ({open, handleSubmitReview}) => {
             message: message.length === 0 ? 'Please enter a message.' : ''
         });
 
-        if (errors.name.length === 0 && errors.message.length === 0) {
+        if (errors.name.length !== 0 && errors.message.length !== 0) {
             handleSubmitReview({
                 rating: formValues.rating,
                 name: formValues.name,
