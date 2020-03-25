@@ -1,7 +1,8 @@
-import {GET_BOOK_DETAILS, GET_BOOK_LIST, ADD_REVIEW, SEARCH_BOOK} from "../actions/books";
+import {GET_BOOK_DETAILS, GET_BOOK_LIST, ADD_REVIEW, SEARCH_BOOK, RESTORE_INITIAL_BOOKS} from "../actions/books";
 
 const initialState = {
     books: [],
+    initialBooks: [],
     bookDetails: {},
     bookReviews: []
 };
@@ -10,7 +11,8 @@ export default function (state = initialState, {type, payload = null}) {
     if (type === GET_BOOK_LIST) {
         return {
             ...state,
-            books: payload
+            books: payload,
+            initialBooks: payload
         }
     }
     if (type === GET_BOOK_DETAILS) {
@@ -34,6 +36,13 @@ export default function (state = initialState, {type, payload = null}) {
         return {
             ...state,
             books: payload
+        }
+    }
+
+    if(type === RESTORE_INITIAL_BOOKS) {
+        return {
+            ...state,
+            books: state.initialBooks
         }
     }
 

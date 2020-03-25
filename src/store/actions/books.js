@@ -5,6 +5,7 @@ export const GET_BOOK_LIST = 'GET_BOOK_LIST';
 export const GET_BOOK_DETAILS = 'GET_BOOK_DETAILS';
 export const ADD_REVIEW = 'books/ADD_REVIEW';
 export const SEARCH_BOOK = 'SEARCH_BOOK';
+export const RESTORE_INITIAL_BOOKS = 'RESTORE_INITIAL_BOOKS';
 
 export function getBooks(subject, parameters) {
     return (dispatch, getState) => {
@@ -67,5 +68,11 @@ export function searchBook(title) {
                 getToastr().error('Server Error: Something went wrong. Please try again.');
                 console.log(e)
             });
+    }
+}
+
+export function restoreInitialBooks() {
+    return {
+        type: RESTORE_INITIAL_BOOKS
     }
 }

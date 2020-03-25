@@ -3,7 +3,7 @@ import {makeStyles, fade} from "@material-ui/core/styles";
 import {InputBase, Grid, Box} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {connect} from "react-redux";
-import {getBooks, searchBook} from "../../../store/actions/books";
+import {restoreInitialBooks, searchBook} from "../../../store/actions/books";
 import Progress from "../../../components/Progress";
 
 const useStyles = makeStyles(theme => ({
@@ -53,8 +53,8 @@ const SearchBar = ({dispatch}) => {
             dispatch(searchBook(search))
                 .then(() => setIsLoading(false));
         } else {
-            dispatch(getBooks('fiction', {limit: 21}))
-                .then(() => setIsLoading(false));
+            dispatch(restoreInitialBooks());
+            setIsLoading(false);
         }
     };
 
