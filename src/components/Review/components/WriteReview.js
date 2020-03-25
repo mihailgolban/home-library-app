@@ -19,6 +19,7 @@ const WriteReview = ({open, handleSubmitReview}) => {
                 name: formValues.name,
                 message: formValues.message
             });
+            setFormValues({name: '', message: '', rating: ''});
         }
     };
 
@@ -40,6 +41,7 @@ const WriteReview = ({open, handleSubmitReview}) => {
                     />
                 </Box>
                 <TextField name="name"
+                           value={formValues.name}
                            label="Name"
                            fullWidth={true}
                            variant="outlined"
@@ -51,6 +53,7 @@ const WriteReview = ({open, handleSubmitReview}) => {
                 <Box mt={2}>
                     <TextField
                         name="message"
+                        value={formValues.message}
                         id="outlined-multiline-static"
                         label="Message"
                         multiline

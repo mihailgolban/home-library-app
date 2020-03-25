@@ -13,6 +13,7 @@ const Home = ({books}) => {
                 <SearchBar/>
             </Box>
             <Box display="flex" flexWrap="wrap">
+                {books.length === 0 && <Box textAlign="center">No matches</Box>}
                 {books && books.map((book, i) => {
                     const {key, cover_id=null, cover_i=null, cover_edition_key, ...rest} = book;
                     const coverId = cover_id ?? cover_i ?? null;

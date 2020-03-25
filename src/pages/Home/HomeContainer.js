@@ -17,7 +17,7 @@ class HomeContainer extends Component {
         const {dispatch} = this.props;
         this.setState({isLoading: true});
         dispatch(getBooks('love', {limit: 21}))
-            .then(this.setState({isLoading: false}))
+            .then(() => this.setState({isLoading: false}))
     }
 
     render() {
