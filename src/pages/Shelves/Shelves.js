@@ -1,6 +1,6 @@
 import React from 'react';
 import NavMenu from "./NavMenu";
-import {Box, Grid, Button, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 import PageTitle from "../../components/PageTitle";
 import Book from "../../components/Book";
 import Review from "../../components/Review";

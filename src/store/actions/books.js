@@ -1,4 +1,5 @@
 import Api from "../../Api";
+import {getToastr} from "../../utils";
 
 export const GET_BOOK_LIST = 'GET_BOOK_LIST';
 export const GET_BOOK_DETAILS = 'GET_BOOK_DETAILS';
@@ -18,7 +19,10 @@ export function getBooks(subject, parameters) {
                     });
                 }
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                getToastr().error('Server Error: Something went wrong. Please try again.');
+                console.log(e);
+            });
     }
 }
 
@@ -36,7 +40,10 @@ export function getBookDetails(bookId) {
                     })
                 }
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                getToastr().error('Server Error: Something went wrong. Please try again.');
+                console.log(e);
+            });
     }
 }
 
@@ -51,12 +58,14 @@ export function searchBook(title) {
     return dispatch => {
         return Api.searchBook(title)
             .then(({data}) => {
-                console.log("searchBook", data);
                 dispatch({
                     type: SEARCH_BOOK,
                     payload: data.docs.filter(book => book['cover_edition_key'] !== undefined)
                 })
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                getToastr().error('Server Error: Something went wrong. Please try again.');
+                console.log(e)
+            });
     }
 }

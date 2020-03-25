@@ -23,7 +23,12 @@ class HomeContainer extends Component {
     render() {
         const {books} = this.props;
         const {isLoading} = this.state;
-        return isLoading ? <Progress/> : <Home books={books}/>;
+        return (
+            <div>
+                {isLoading && <Progress/>}
+                <Home books={books}/>
+            </div>
+        );
     }
 }
 

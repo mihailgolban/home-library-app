@@ -4,6 +4,7 @@ import {InputBase, Grid, Box} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {connect} from "react-redux";
 import {searchBook} from "../../../store/actions/books";
+import Progress from "../../../components/Progress";
 
 const useStyles = makeStyles(theme => ({
     search: {
@@ -43,44 +44,50 @@ const useStyles = makeStyles(theme => ({
 const SearchBar = ({dispatch}) => {
     const [value, setValue] = useState('');
     const [typingTimout, setTypingTimeout] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
     const classes = useStyles();
     return (
-        <Box display="flex" justifyContent="center">
-            <Grid item md={4}>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        name="search"
-                        value={value}
-                        placeholder="Search…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                        fullWidth={true}
-                        onChange={e => {
-                            const value = e.target.value;
-                            setValue(value);
-                            clearTimeout(typingTimout);
-                            if (value.length !== 0) {
-                                setTypingTimeout(setTimeout(() => {
-                                    dispatch(searchBook(value));
-                                }, 1000));
-                            }
-                        }}
-                        onKeyDown={e => {
-                            if (e.key === 'Enter') {
+        <>
+            {isLoading && <Progress/>}
+            <Box display="flex" justifyContent="center">
+                <Grid item md={4}>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon/>
+                        </div>
+                        <InputBase
+                            name="search"
+                            value={value}
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{'aria-label': 'search'}}
+                            fullWidth={true}
+                            onChange={e => {
+                                const value = e.target.value;
+                                setValue(value);
                                 clearTimeout(typingTimout);
-                                dispatch(searchBook(value));
-                            }
-                        }}
-                    />
-                </div>
-            </Grid>
-        </Box>
+                                if (value.length !== 0) {
+                                    setTypingTimeout(setTimeout(() => {
+                                        setIsLoading(true);
+                                        dispatch(searchBook(value)).then(() => setIsLoading(false));
+                                    }, 1000));
+                                }
+                            }}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                    clearTimeout(typingTimout);
+                                    setIsLoading(true);
+                                    dispatch(searchBook(value)).then(() => setIsLoading(false));
+                                }
+                            }}
+                        />
+                    </div>
+                </Grid>
+            </Box>
+        </>
     );
 };
 
