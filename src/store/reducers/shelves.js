@@ -28,7 +28,6 @@ export default function (state = initialState, {type, payload = null}) {
 
     if (type === ADD_BOOK_TO_SHELF) {
         const {shelfId, bookId, book} = payload;
-        console.log(state.books);
         const books = state.books;
         books.push({bookId, shelfId, bookDetails: book});
         return {

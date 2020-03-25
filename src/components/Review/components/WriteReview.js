@@ -9,17 +9,17 @@ const WriteReview = ({open, handleSubmitReview}) => {
     const handleSubmit = () => {
         const {name, message} = formValues;
         setErrors({
-            name: name.length === 0 ? 'Please enter your name.' : '',
-            message: message.length === 0 ? 'Please enter a message.' : ''
+            name: name === "" ? 'Please enter your name.' : '',
+            message: message === "" ? 'Please enter a message.' : ''
         });
 
-        if (errors.name.length !== 0 && errors.message.length !== 0) {
+        if (name !== "" && message !== "") {
             handleSubmitReview({
                 rating: formValues.rating,
                 name: formValues.name,
                 message: formValues.message
             });
-            setFormValues({name: '', message: '', rating: ''});
+            setFormValues({name: '', message: '', rating: ''})
         }
     };
 
@@ -31,7 +31,7 @@ const WriteReview = ({open, handleSubmitReview}) => {
             <CardContent>
                 <Box mb={2}>
                     <Rating name="bookRating"
-                            value={formValues.rating}
+                            value={+formValues.rating}
                             precision={0.5}
                             size="large"
                             defaultValue={0}

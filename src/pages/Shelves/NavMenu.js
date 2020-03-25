@@ -10,7 +10,9 @@ import {
     ListItem,
     List,
     ListItemText,
-    ListSubheader,
+    Card,
+    CardContent,
+    CardHeader,
     Fab,
     Box
 } from "@material-ui/core";
@@ -29,48 +31,47 @@ const NavMenu = ({shelves, selectedShelfId, dispatch}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <List component="nav"
-                  subheader={
-                      <ListSubheader component="div" id="nested-list-subheader">
-                         Bookshelves
-                      </ListSubheader>
-                  }
-            >
-                {Object.keys(shelves).map(shelfId => {
-                    const {name} = shelves[shelfId];
-                    return (
-                        <ListItem
-                            key={shelfId}
-                            button
-                            onClick={() => dispatch(setActiveShelf(shelfId))}
-                            selected={shelfId === selectedShelfId}
+            <Card>
+                <CardHeader title="Bookshelves"/>
+                <CardContent>
+                    <List component="nav">
+                        {Object.keys(shelves).map(shelfId => {
+                            const {name} = shelves[shelfId];
+                            return (
+                                <ListItem
+                                    key={shelfId}
+                                    button
+                                    onClick={() => dispatch(setActiveShelf(shelfId))}
+                                    selected={shelfId === selectedShelfId}
+                                >
+                                    {name && <ListItemText primary={name} />}
+                                    <RemoveMenu shelfId={shelfId} dispatch={dispatch}/>
+                                </ListItem>
+                            )
+                        })}
+                    </List>
+                    <Box textAlign={"center"} p={2}>
+                        <Fab
+                            variant="extended"
+                            color="primary"
+                            aria-label="add"
+                            onClick={() => setOpen(true)}
                         >
-                            {name && <ListItemText primary={name} />}
-                            <RemoveMenu shelfId={shelfId} dispatch={dispatch}/>
-                        </ListItem>
-                    )
-                })}
-            </List>
-            <Box textAlign={"center"} p={2}>
-                <Fab
-                    variant="extended"
-                    color="primary"
-                    aria-label="add"
-                    onClick={() => setOpen(true)}
-                >
-                    <AddIcon />
-                    New shelf
-                </Fab>
-            </Box>
-            <AddNewShelfDialog
-                shelves={shelves}
-                open={open}
-                handleClose={() => setOpen(false)}
-                handleSubmit={(name, categories) => {
-                    dispatch(addNewShelf(name, categories));
-                    setOpen(false);
-                }}
-            />
+                            <AddIcon />
+                            New shelf
+                        </Fab>
+                    </Box>
+                    <AddNewShelfDialog
+                        shelves={shelves}
+                        open={open}
+                        handleClose={() => setOpen(false)}
+                        handleSubmit={(name, categories) => {
+                            dispatch(addNewShelf(name, categories));
+                            setOpen(false);
+                        }}
+                    />
+                </CardContent>
+            </Card>
         </div>
     );
 };

@@ -43,7 +43,7 @@ const Review = ({title, reviews, handleSubmitReview}) => {
                                             <Box textAlign="right">
                                                 <Rating
                                                     name="rating"
-                                                    value={rating}
+                                                    value={+rating}
                                                     precision={0.5}
                                                     readOnly
                                                 />

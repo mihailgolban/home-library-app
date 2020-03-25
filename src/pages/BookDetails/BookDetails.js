@@ -54,7 +54,7 @@ const BookDetails = () => {
                                             </Typography>
                                             <Rating
                                                 name="rating"
-                                                value={rating}
+                                                value={+rating}
                                                 precision={0.5}
                                                 readOnly
                                             />
